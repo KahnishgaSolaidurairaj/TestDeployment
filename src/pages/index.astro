@@ -1,0 +1,194 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCarousel from "../components/ProjectCarousel.astro";
+import SkillsCard from "../components/SkillsCard.astro";
+import Contact from "../components/Contact.astro";
+
+import projects from "../data/projects.js";
+import skills from "../data/skills.js";
+
+import ExperienceItem from "../components/ExperienceItem.astro";
+import experience from "../data/experience.js";
+---
+
+<BaseLayout title="Portfolio">
+
+  <!-- TO DO - fill the Hero and About me section with your information -->
+  <!-- Hero -->
+  <section id="home">
+    <div class="container">
+      <div class = "hero">
+      <div class="hero-text">
+        <h1>Your Name</h1>
+        <p>Short Description</p>
+      </div>
+
+      <div class="hero-image">
+        <img src="/images/square.avif" class="profile" />
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About me (LEFT RIGHT)-->
+  <section id="about">
+    <div class="container">
+      <h2>About Me</h2>
+
+      <!-- Row 1 (Image LEFT, Text RIGHT) -->
+      <div class="about-row">
+        <div class="about-image">
+          <img src="/images/square.avif" />
+        </div>
+        <div class="about-text">
+          <p> Major, Year, College</p>
+          <p> Your Intrests, Goals</p>
+        </div>
+      </div>
+
+      <!-- Row 2 (Image RIGHT, Text LEFT) -->
+      <div class="about-row reverse">
+        <div class="about-image">
+          <img src="/images/square.avif"/>
+        </div>
+        <div class="about-text">
+          <p> Hobbies, Passions </p>
+          <p> Optional 2nd paragraph on Hobbies, Passions</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="container">
+      <h2>Projects</h2>
+      <ProjectCarousel projects={projects} />
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <div class="container">
+      <h2>Experience</h2>
+      {experience.map(exp => (<ExperienceItem {...exp} />))}
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <h2>Skills</h2>
+      <SkillsCard skills={skills} />
+    </container>
+  </section>
+
+  <!-- CONTACT -->
+  <!-- TO DO - update the contact links --> 
+  <section id="contact">
+    <div class="container">
+      <Contact 
+        linkedin="https://www.linkedin.com/in/_______/"
+        github="https://github.com/______"
+        email="_____@uic.edu"
+      />
+    </container>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .container{
+    margin: 3rem;
+  }
+
+  #home {
+    padding-top: 80px;
+  }
+
+  #projects, #experience, #skills, #contact {
+    padding-top: 40px;
+  }
+
+  .hero {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: 3rem auto;
+    max-width: 1000px;
+  }
+
+  .hero-text {
+    flex: 1;
+  }
+
+  .hero-text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .profile {
+    width: 250px;
+    border-radius: 16px;
+  }
+
+  .about-row {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem auto;
+    max-width: 900px;
+  }
+
+  /* Flip layout for second row */
+  .about-row.reverse {
+    flex-direction: row-reverse;
+  }
+
+  .about-image img {
+    width: 300px;
+    max-width: 300px;
+    border-radius: 12px;
+  }
+
+  .about-text {
+    flex: 1;
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .about-text p{
+    color: white;
+  }
+
+  /* Responsive behavior - Shuffling things when the page shrinks */
+  @media (max-width: 800px) {
+    .hero {
+      flex-direction: column-reverse; /* image on top */
+      text-align: center;
+    }
+
+    .hero-image {
+      justify-content: center;
+    }
+
+    .about-row,
+    .about-row.reverse {
+      flex-direction: column;   /* stack vertically */
+      text-align: center;
+    }
+
+    .about-image img {
+      max-width: 100%;
+    }
+  }
+</style>

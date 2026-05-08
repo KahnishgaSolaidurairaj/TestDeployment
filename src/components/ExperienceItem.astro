@@ -1,0 +1,124 @@
+---
+const { title, company, date, points } = Astro.props;
+---
+
+<div class="experience-item">
+  <button class="experience-header">
+    <div class="left">
+      <h3>{title}</h3>
+      <span class="company">{company}</span>
+    </div>
+
+    <div class="right">
+      <span class="date">{date}</span>
+      <span class="arrow">⌄</span>
+    </div>
+  </button>
+
+  <div class="experience-content">
+    <ul>
+      <!-- TO DO - Task 2 utilizing the map function --> 
+      {points.map(point => (<li>{point}</li>))}
+    </ul>
+  </div>
+</div>
+
+<style>
+.experience-item {
+  background: #1e293b;
+  border-radius: 12px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.experience-header {
+  width: 100%;
+  background: none;
+  border: none;
+  color: white;
+  padding: 1.5rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* LEFT SIDE */
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+.experience-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* Company pill */
+.company {
+  font-size: 0.9rem;
+  background: linear-gradient(80deg, #2b54b4, #763aee);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  opacity: 0.9;
+}
+
+/* RIGHT SIDE */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.date {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* Arrow animation */
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.experience-item.active .arrow {
+  transform: rotate(180deg);
+}
+
+/* Dropdown content */
+.experience-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  padding: 0 1.5rem;
+}
+
+.experience-content li {
+  margin: 1rem;
+}
+
+.experience-item.active .experience-content {
+  max-height: 300px;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.experience-item.active .arrow {
+  transform: rotate(180deg);
+}
+</style>
+
+<script>
+  const items = document.querySelectorAll('.experience-item');
+
+  items.forEach(item => {
+    const header = item.querySelector('.experience-header');
+
+    header.addEventListener('click', () => {
+      item.classList.toggle('active');
+    });
+  });
+</script>
